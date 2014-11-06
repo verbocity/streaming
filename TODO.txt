@@ -1,0 +1,55 @@
+TO DO:
+- Persist and recall from SQL interface
+  Use Cassandra to persist distributed data
+- Create a live graph of the number of tweets per second, minute, hour
+- Apply machine learning
+- Use MLlib
+- Create Cassandra database backend using Phantom
+- Create live map with orange dots showing transactions
+- Create output REST API to put transactions onto
+- Create output REST API to put new accounts onto
+
+http://spray.io/documentation/1.2.1/spray-caching/#installation
+https://github.com/websudos/phantom
+
+Charting/frontend frameworks:
+- HighCharts
+- (Angular.js)
+- Vega (derived from d3.js)
+- Plot.ly
+- Dashku.com
+
+Create applications for:
+- Generate data of a certain schema
+- Sending JSON data on port
+- Processing data on API URL
+
+data <- read.csv(file="PX141013.csv", sep=";")
+names(data) <- c("iban", "description", "city", "country", "datetime", "amount", "status")
+
+nl <- data[data$country == "NL",]
+freqs <- as.data.frame(table(nl$city))
+head(freqs[order(-freqs$Freq),], 20)
+
+"id" of "properties"."hc-key"
+
+amsterdam	nl-3557-gm0363
+rotterdam	nl-3560-gm0599
+den haag	nl-3560-gm0518
+utrecht		nl-3559-gm0344
+almere		nl-fl-gm0034
+amersfoort	nl-3559-gm0307
+breda		nl-3558-gm0758
+zoetermeer	nl-3560-gm0637
+arnhem		nl-ge-gm0202
+haarlem		nl-3557-gm0392
+leiden		nl-3560-gm0546
+eindhoven	nl-3558-gm0772
+delft		nl-3560-gm0503
+groningen	nl-gr-gm0014
+tilburg		nl-3558-gm0855
+amsterdam zui	nl-3557-gm0363
+nijmegen	nl-ge-gm0268
+den bosch	nl-3558-gm0796
+lelystad	nl-fl-gm0995
+amstelveen	nl-3557-gm0362

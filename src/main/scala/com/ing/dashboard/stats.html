@@ -1,0 +1,25 @@
+<html>
+<head>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.js"></script>
+    <script src="http://code.highcharts.com/highcharts.js"></script>
+    <!-- <script src="http://code.highcharts.com/maps/modules/data.js"></script> -->
+    <!-- <script src="http://code.highcharts.com/highcharts-more.js"></script> -->
+    <script src="/js/stats.js"></script>
+    <script type="text/javascript">$(document).ready(createCharts);</script>
+</head>
+
+<body>
+    <table>
+        <tr><td align="right">Current time: </td><td id="currentTime"></td></tr>
+        <tr><td align="right">Nr. of transactions (this window): </td><td id="tranCountThisWindow"></td></tr>
+        <tr><td align="right">Nr. of transactions (total): </td><td id="tranCountTotal"></td></tr>
+        <tr><td align="right">Amount (this window): </td><td id="sumAmountThisWindow"></td></tr>
+        <tr><td align="right">Amount (total): </td><td id="sumAmountTotal"></td></tr>
+        <tr><td align="right">Average amount (this window): </td><td id="avgAmountThisWindow"></td></tr>
+        <tr><td align="right">Average trans/sec: </td><td id="avgTransPerSecThisWindow"></td></tr>
+        <tr><td align="right">Peak transaction count: </td><td id="peakTranCount"></td></tr>
+        <tr><td align="right">Most frequent vendor: </td><td id="mostFrequentVendor"></td></tr>
+        <tr><td align="right">Most frequent category: </td><td id="mostFrequentCategory"></td></tr>
+    </table>
+</body>
+</html>
