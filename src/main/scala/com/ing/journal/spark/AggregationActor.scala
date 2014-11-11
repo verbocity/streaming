@@ -1,6 +1,6 @@
 package com.ing.journal.spark
 
-import akka.actor.ActorRef
+import akka.actor.{Actor, ActorRef}
 import org.apache.spark.rdd.RDD
 import org.apache.spark.streaming.Duration
 import com.ing.data.{Event, Transaction}
@@ -9,7 +9,7 @@ import scala.collection.mutable.Map
 case class SetActors(actors: List[ActorRef])
 
 class AggregationActor(senderActor: ActorRef, levels: List[Duration], baseWindow: Duration)
-	extends StreamActor {
+	extends Actor {
 	var actors = List.empty[ActorRef]
 	val map = initializeMap(levels)
 

@@ -34,10 +34,16 @@ libraryDependencies ++= Seq(
   "org.reactivemongo" %% "reactivemongo" % "0.10.0",
   "com.github.nscala-time" %% "nscala-time" % "1.2.0",
   "ch.qos.logback" % "logback-classic" % "1.1.2",
-  "com.typesafe.play" %% "play-json" % "2.3.4"
+  "com.typesafe.play" %% "play-json" % "2.3.4",
+  "org.renjin" % "renjin-script-engine" % "0.7.0-RC7",
+  "com.google.guava" % "guava" % "13.0" force(),
+  "org.python" % "jython-standalone" % "2.7-b3",
+  "org.aspectj" % "aspectjweaver" % "1.8.4",
+  "org.aspectj" % "aspectjrt" % "1.8.4"
 )
 
 resolvers ++= Seq(
   "Spray repository" at "http://repo.spray.io",
-  "Typesafe repository" at "http://repo.typesafe.com/typesafe/releases/"
+  "Typesafe repository" at "http://repo.typesafe.com/typesafe/releases/",
+  "BeDataDriven" at "http://nexus.bedatadriven.com/content/groups/public/"
 )

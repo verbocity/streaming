@@ -21,6 +21,8 @@ object Analysis extends App {
 	println("The top 10 of active accounts: ")
 	sorted.take(10).foreach(i => println(i._1 + ": " + i._2))
 
-	println("The top 10 of frequent travelers with cities")
-	perAccount
+	// K-means clustering on transactions
+	// Based on: amount, frequency, location(s), description(s)
+
+	
 }

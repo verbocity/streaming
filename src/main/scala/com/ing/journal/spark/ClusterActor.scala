@@ -1,8 +1,9 @@
 package com.ing.journal.spark
 
+import akka.actor.Actor
 import com.ing.data.Event
 
-class ClusterActor() extends StreamActor {
+class ClusterActor() extends Actor {
 	override def receive = {
 		case StreamAction(rdd) =>
 			// Train the model on the incoming data stream

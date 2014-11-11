@@ -2,13 +2,11 @@ package com.ing.journal.spark
 
 import akka.actor.{ActorRef, ActorSystem, Props}
 import com.ing.data.Event
-import com.ing.fraud.{FraudActor, EventHistory, TravelActor}
+import com.ing.fraud.EventHistory
 import org.apache.log4j.{Level, Logger}
 import org.apache.spark._
 import org.apache.spark.rdd.RDD
 import org.apache.spark.streaming._
-import org.apache.spark.streaming.dstream.ReceiverInputDStream
-import org.joda.time.DateTime
 
 object JournalListener extends App {
 	Logger.getRootLogger().setLevel(Level.ERROR)
@@ -60,6 +58,7 @@ object JournalListener extends App {
 	def createActorList(): List[ActorRef] = {
 		List(
 			system.actorOf(Props(new StatisticsActor()))
+			// system.actorOf(Props(new PersistenceActor()))
 			//, system.actorOf(Props(new RegionActor()))
 			//, system.actorOf(Props(new FraudActor()))
 			//, system.actorOf(Props(new GroupActor()))

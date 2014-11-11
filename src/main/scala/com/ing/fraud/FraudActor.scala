@@ -1,22 +1,20 @@
 package com.ing.fraud
 
 import java.util.Random
-
+import akka.actor.Actor
 import com.ing.data.Event
-import com.ing.journal.spark.{StreamActor, EventAction, HttpSend}
-import org.joda.time.DateTime
+import com.ing.journal.spark.{EventAction, HttpSend}
 
-class FraudActor() extends StreamActor with HttpSend {
+class FraudActor() extends Actor with HttpSend {
 	var previousEventSameAccount: Map[String, Event] = _
 	val customRules: List[Event => FraudResult] = initializeRules()
 	val engineManager = new FraudEngineManager()
-
+	
 	def receive = {
 		case EventAction(event: Event) =>
 			if (new Random().nextFloat() < 0.01) {
 				customRules.foreach(rule => send("fraud", rule(event).toJson))
 				val result = engineManager.thresholdVote(event, 0.7f)
-
 				send("fraud", result.toJson)
 			}
 		case _ =>

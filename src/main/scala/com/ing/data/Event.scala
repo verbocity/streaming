@@ -1,17 +1,22 @@
 package com.ing.data
 
+import org.joda.time.DateTime
 import spray.json._
 
 case class Event(id: Long, time: Long, json: String) {
 	private lazy val jsObject = json.parseJson.asJsObject
 
 	def this(json: String) {
-		this(Event.getID(), Event.getTime(json), json)
+		this(Event.getOrGenerateID(json),
+			 Event.getOrGenerateTime(json),
+			 json)
 	}
 
 	def this(time: Long, json: String) = {
-		this(Event.getID(), time, json)
+		this(Event.getOrGenerateID(json), time, json)
 	}
+
+	def getJsObject = jsObject
 
 	def getField(name: String): String = {
 		getField(name, jsObject)
@@ -45,21 +50,38 @@ case class Event(id: Long, time: Long, json: String) {
 }
 
 object Event {
-	def apply(json: String) = new Event(json)
-	def apply(time: Long, json: String) = new Event(Event.getID(), time, json)
+	def apply(json: String) = {
+		new Event(json)
+	}
 
-	private var previousID = 1
+	def apply(time: Long, json: String) = {
+		new Event(Event.getOrGenerateID(json), time, json)
+	}
 
-	def getID(): Long = {
+	private var previousID = 0
+
+	def getOrGenerateID(json: String): Long = {
 		synchronized {
-			previousID += 1
-			previousID
+			val field = json.parseJson
+				.asJsObject.getFields("id")
+
+			if (field.size > 0) {
+				field(0).compactPrint.replace("\"", "").toLong
+			} else {
+				previousID += 1
+				previousID
+			}
 		}
 	}
 
-	def getTime(json: String): Long = {
-		json.parseJson
+	def getOrGenerateTime(json: String): Long = {
+		val field = json.parseJson
 			.asJsObject.fields("datetime")
-			.compactPrint.replace("\"", "").toLong
+
+		if (field != null) {
+			field.compactPrint.replace("\"", "").toLong
+		} else {
+			DateTime.now.getMillis
+		}
 	}
 }

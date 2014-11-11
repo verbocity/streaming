@@ -3,14 +3,15 @@ package com.ing.fraud
 import java.io.File
 import java.sql.{DriverManager, ResultSet}
 
+import akka.actor.Actor
 import com.ing.data.Event
-import com.ing.journal.spark.{StreamActor, EventAction, HttpSend, StreamAction}
+import com.ing.journal.spark.{EventAction, HttpSend, StreamAction}
 import org.apache.spark.rdd.RDD
 
 import scala.collection.immutable.{Map => iMap}
 import scala.collection.mutable.{Map => mMap}
 
-class TravelActor extends StreamActor with HttpSend {
+class TravelActor extends Actor with HttpSend {
 	def receive = {
 		case EventAction(e: Event) =>
 			val iban = e.getField("iban")
@@ -22,8 +23,6 @@ class TravelActor extends StreamActor with HttpSend {
 				send("singletravel", "blabla") // EventHistory.getJsonHistory(iban))
 			}
 		case StreamAction(rdd: RDD[Event]) =>
-			super.startTiming(rdd)
-
 			val travelersPerMunicipality =
 				rdd.map(e => TravelActor.findJourney(e))
 					.filter(_._3 > 0) // must have traveled (distance) more than 0 km
@@ -40,8 +39,6 @@ class TravelActor extends StreamActor with HttpSend {
 
 				send("travel", "{" + contents + "}")
 			}
-
-			super.stopTiming()
 		case _ =>
 	}
 }

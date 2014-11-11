@@ -1,22 +1,20 @@
 package com.ing.journal.spark
 
+import akka.actor.Actor
 import com.ing.data.Event
+import com.ing.journal.spark.traits.{Logging, Performance}
 import org.apache.spark.rdd.RDD
 import org.joda.time.DateTime
 import scala.collection.mutable.{Map => mMap}
 
-class StatisticsActor extends StreamActor with HttpSend {
+class StatisticsActor extends StreamActor {
 	var peakTranCount: Long = 0
 	var tranCountTotal: Long = 0
 	var sumAmountTotal: Long = 0
 
-	override def receive = {
+	def Receive = {
 		case StreamAction(rdd: RDD[Event]) =>
-			super.startTiming(rdd)
-
 			calculateStatistics(rdd)
-
-			super.stopTiming()
 		case EventAction(transaction) =>
 		case _ =>
 	}
@@ -61,7 +59,6 @@ class StatisticsActor extends StreamActor with HttpSend {
 			val mostFrequentCategory = 2
 			result.put("mostFrequentCategory", mostFrequentCategory)
 
-			println("Sending stats at " + DateTime.now())
 			send("stats", JsonResult.mapToJson(result.toMap))
 		}
 	}

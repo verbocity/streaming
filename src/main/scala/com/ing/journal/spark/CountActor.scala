@@ -1,14 +1,13 @@
 package com.ing.journal.spark
 
+import akka.actor.Actor
 import com.ing.data.Event
 import org.apache.spark.rdd.RDD
 
-class CountActor extends StreamActor with HttpSend {
+class CountActor extends Actor with HttpSend {
 	def receive = {
 		case StreamAction(rdd: RDD[Event]) =>
-			super.startTiming(rdd)
 			send("count", "{ \"count\": \"" + rdd.count().toString + "\" }")
-			super.stopTiming()
 		case _ =>
 	}
 }

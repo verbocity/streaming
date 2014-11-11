@@ -7,7 +7,7 @@ import com.websudos.phantom.Implicits._
 object DBConnector {
 	val keySpace = "streaming"
 
-	lazy val cluster =  Cluster.builder()
+	lazy val cluster = Cluster.builder()
 		.addContactPoint("localhost")
 		.withPort(9042)
 		.withoutJMXReporting()

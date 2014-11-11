@@ -1,22 +1,19 @@
 package com.ing.journal.spark
 
+import akka.actor.Actor
 import com.ing.data.Event
 import org.apache.spark.rdd.RDD
 import com.ing.utils.Utils
 import org.apache.spark.SparkContext._
 
-class RegionActor extends StreamActor with HttpSend {
+class RegionActor extends Actor with HttpSend {
 	lazy val cityToMunicipalityMap = Utils.getCityMunicipalityMapping()
 	lazy val municipalityToCodeMap = Utils.getNLMapConversion()
 
 	override def receive = {
 		case StreamAction(rdd: RDD[Event]) =>
-			super.startTiming(rdd)
-
 			calculateGroups(rdd)
 			calculateRegionCounts(rdd)
-
-			super.stopTiming()
 		case EventAction(transaction) =>
 		case _ =>
 	}
