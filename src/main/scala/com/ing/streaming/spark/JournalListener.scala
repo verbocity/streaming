@@ -20,7 +20,7 @@ object JournalListener extends App {
 	val system = ActorSystem()
 	val actors = createActorList()
 	val conf = new SparkConf()
-		.setMaster("local[4]")
+		.setMaster("local[8]")
 		/*.setMaster("mesos://zk://192.168.2.102:2181/mesos")
 		.set("spark.executor.uri", "http://192.168.2.101:8000/spark-1.1.0-bin-hadoop2.4.tgz")
 		.set("spark.mesos.executor.home", "/tmp")
