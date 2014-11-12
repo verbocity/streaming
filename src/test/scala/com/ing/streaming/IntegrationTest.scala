@@ -25,7 +25,7 @@ class IntegrationTest extends TestKit(ActorSystem("system"))
 
 		val host = "localhost"
 		val port = 1357
-		val speed = 1000.0f    // Keep equal to or below 288, which is 5 minutes for 24 hours
+		val speed = 10.0f    // Keep equal to or below 288, which is 5 minutes for 24 hours
 		val density = 1.0f   // no filtering with density = 1.0f
 		val maxRows = 0      // unlimited number of rows
 		val maxPerSec = 0    // in simulation time

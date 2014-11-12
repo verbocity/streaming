@@ -19,7 +19,7 @@ object JournalListener extends App {
 	val listenOnPort = 1357
 	val system = ActorSystem()
 	val actors = createActorList()
-	val conf = new SparkConf().setMaster("local[4]").setAppName("JournalListener")
+	val conf = new SparkConf().setMaster("mesos://192.168.2.102:5050").setAppName("JournalListener")
 	val receiver = new LineReceiver(listenOnPort)
 	val ssc = new StreamingContext(conf, baseWindow)
 
