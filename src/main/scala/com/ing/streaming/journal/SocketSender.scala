@@ -25,7 +25,7 @@ class SocketSender(host: String, port: Int) extends Actor {
 			try {
 				if (!host.isEmpty && port != 0) {
 					if (!initialized) {
-						println("Initializing sender")
+						println("Initializing sender with host " + host + " and port " + port)
 						socket = new Socket(InetAddress.getByName(host), port)
 						out = new PrintStream(socket.getOutputStream())
 						initialized = true

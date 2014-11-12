@@ -65,21 +65,21 @@ trait ApiPassThroughService extends HttpService {
 
 	val renderRoute = {
 		path("world") {
-			getFromResource("com/ing/dashboard/world.html")
+			getFromResource("com/ing/streaming/dashboard/world.html")
 		} ~ path("europe") {
-			getFromResource("com/ing/dashboard/europe.html")
+			getFromResource("com/ing/streaming/dashboard/europe.html")
 		} ~ path("stats") {
-			getFromResource("com/ing/dashboard/stats.html")
+			getFromResource("com/ing/streaming/dashboard/stats.html")
 		} ~ path("nl") {
-			getFromResource("com/ing/dashboard/nl.html")
+			getFromResource("com/ing/streaming/dashboard/nl.html")
 		} ~ path("line") {
-			getFromResource("com/ing/dashboard/line.html")
+			getFromResource("com/ing/streaming/dashboard/line.html")
 		} ~ path("dashboard") {
-			getFromResource("com/ing/dashboard/render.html")
+			getFromResource("com/ing/streaming/dashboard/render.html")
 		} ~ pathPrefix("js") {
-			getFromResourceDirectory("com/ing/dashboard")
+			getFromResourceDirectory("com/ing/streaming/dashboard")
 		} ~ pathPrefix("img") {
-			getFromResourceDirectory("com/ing/dashboard")
+			getFromResourceDirectory("com/ing/streaming/dashboard")
 		}
 	}
 

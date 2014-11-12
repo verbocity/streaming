@@ -1,6 +1,6 @@
 package com.ing.streaming.spark
 
-import java.net.ServerSocket
+import java.net.{Socket, ServerSocket}
 
 import com.ing.streaming.data.Event
 import org.apache.spark.storage.StorageLevel

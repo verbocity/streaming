@@ -13,13 +13,19 @@ object JournalListener extends App {
 	Logger.getRootLogger().setLevel(Level.ERROR)
 
 	// Set up NL cities distances table
-	EventHistory.initialize()
+	//EventHistory.initialize()
 
 	val baseWindow = Seconds(1)
 	val listenOnPort = 1357
 	val system = ActorSystem()
 	val actors = createActorList()
-	val conf = new SparkConf().setMaster("mesos://zk://192.168.2.102:2181").setAppName("JournalListener")
+	val conf = new SparkConf()
+		.setMaster("local[4]")
+		/*.setMaster("mesos://zk://192.168.2.102:2181/mesos")
+		.set("spark.executor.uri", "http://192.168.2.101:8000/spark-1.1.0-bin-hadoop2.4.tgz")
+		.set("spark.mesos.executor.home", "/tmp")
+		*/
+		.setAppName("JournalListener")
 	val receiver = new LineReceiver(listenOnPort)
 	val ssc = new StreamingContext(conf, baseWindow)
 
@@ -64,8 +70,8 @@ object JournalListener extends App {
 			system.actorOf(Props(new GroupActor())),
 			system.actorOf(Props(new ClusterActor())),
 			system.actorOf(Props(new PredictionActor())),
-			system.actorOf(Props(new CountActor())),
-			system.actorOf(Props(new TravelActor()))
+			system.actorOf(Props(new CountActor()))
+			//system.actorOf(Props(new TravelActor()))
 		)
 	}
 }
