@@ -1,6 +1,7 @@
 package com.ing.streaming.eval
 
 object PythonEval {
+	/*
 	def main(args: Array[String]) {
 		method1()
 		method2()
@@ -53,4 +54,5 @@ object PythonEval {
 		val binary: PyCode = interp.compile(script)
 		interp.exec(binary)
 	}
+	*/
 }

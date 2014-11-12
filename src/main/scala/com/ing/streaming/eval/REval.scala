@@ -3,6 +3,7 @@ package com.ing.streaming.eval
 import javax.script.ScriptEngineManager
 
 object REval {
+	/*
 	def main(args: Array[String]): Unit = {
 		val engine = new ScriptEngineManager().getEngineByName("Renjin")
 
@@ -11,5 +12,5 @@ object REval {
 		engine.eval("model <- lm(y ~ x, df)")
 		engine.eval("print(model)")
 		engine.eval("print(summary(model))")
-	}
+	}*/
 }
