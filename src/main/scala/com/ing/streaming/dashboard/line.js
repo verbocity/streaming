@@ -39,17 +39,23 @@ function createLineChart(source) {
             type: 'line',
             animation: Highcharts.svg,
             marginRight: 10,
-            events: {
-                load: function () {
-                    // set up the updating of the chart each second
-                    var series = this.series[0];
-                    setInterval(function () {
-                        var x = (new Date()).getTime(), // current time
-                            y = Math.random();
-                        series.addPoint([x, y], true, true);
-                    }, 1000);
+                events: {
+                    load: function() {
+                        source.addEventListener('message', function(e) {
+                        var parsed = $.parseJSON(e.data)
+
+                        //console.log(parsed.shell)
+
+                        var c = $('#container1').highcharts();
+                        var x = (new Date()).getTime()
+                        c.series[0].addPoint([x, parseInt(parsed.esso) ], true, true);
+                        c.series[1].addPoint([x, parseInt(parsed.shell) ], true, true);
+                        c.series[2].addPoint([x, parseInt(parsed.total) ], true, true);
+                        c.series[3].addPoint([x, parseInt(parsed.bp) ], true, true);
+
+                        }, true)
+                    }
                 }
-            }
         },
         series: [{
             name: 'Esso',
@@ -191,6 +197,7 @@ function createImageTable(source) {
             loader.load();
         });
     }, false);
+}
 
 function createFraudText(source) {
     source.addEventListener('message', function(e) {
@@ -204,10 +211,9 @@ function createFraudText(source) {
     // seconds part from the timestamp
     var seconds = "0" + date.getSeconds();
 
-
     // will display time in 10:30:23 format
     var formattedTime = hours + ':' + minutes.substr(minutes.length-2) + ':' + seconds.substr(seconds.length-2);
 
     $('#fraud1 table').prepend( '<tr><td>' + parsed.country + '</td><td>' + parsed.city + '</td><td> ' + parsed.amount + '</td><td> '+ parsed.description + '</td></tr>')
-    }, true)
+    }, true);
 }

@@ -1,7 +1,5 @@
 package com.ing.streaming.actors
 
-import java.util.Random
-
 import akka.actor.Actor
 import com.ing.streaming.actors.traits.EventAction
 import com.ing.streaming.data.Event

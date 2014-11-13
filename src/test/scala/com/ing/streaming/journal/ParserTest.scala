@@ -17,7 +17,7 @@ class ParserTest extends TestKit(ActorSystem("parserSystem"))
 	"A Parser actor" should {
 		val senderRef = TestActorRef(new SocketSender("", 0))
 		val queueRef = TestActorRef(new Queue(100, senderRef))
-		val parserRef = TestActorRef(new Parser(queueRef, None))
+		val parserRef = TestActorRef(new Parser(queueRef))
 		val queue = queueRef.underlyingActor
 		val parser = parserRef.underlyingActor
 

@@ -14,7 +14,7 @@ case class ParseLogEntry(entry: String)
  * Parses text message in a String and creates an event
  * object from it.
  */
-class Parser(queue: ActorRef, startFrom: Option[DateTime]) extends Actor {
+class Parser(queue: ActorRef) extends Actor {
 	val formatter: DateTimeFormatter = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss.SSS")
 	var reader: ActorRef = _
 

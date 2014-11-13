@@ -33,7 +33,7 @@ class ReaderTest extends TestKit(ActorSystem("ReaderSystem"))
 
 		val senderRef = TestActorRef(new SocketSender("", 0))
 		val queueRef = TestActorRef(new Queue(100, senderRef))
-		val parserRef = TestActorRef(new Parser(queueRef, None))
+		val parserRef = TestActorRef(new Parser(queueRef))
 		val readerRef = TestActorRef(new Reader(filename, 1, 0, parserRef, Left("\n")))
 		parserRef.underlyingActor.setReader(readerRef)
 

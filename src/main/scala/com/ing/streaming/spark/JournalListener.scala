@@ -66,7 +66,7 @@ object JournalListener extends App {
 		List(
 			system.actorOf(Props(new StatisticsActor())),
 			system.actorOf(Props(new RegionActor())),
-			//system.actorOf(Props(new FraudActor())),
+			system.actorOf(Props(new FraudActor())),
 			//system.actorOf(Props(new GroupActor())),
 			//system.actorOf(Props(new ClusterActor())),
 			//system.actorOf(Props(new PredictionActor())),
