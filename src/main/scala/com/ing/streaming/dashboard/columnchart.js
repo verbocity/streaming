@@ -184,8 +184,8 @@ function createWorldMap(source) {
         },
         colorAxis: {
             min: 1,
-            max: 100,
-            // type: 'logarithmic',
+            max: 10,
+            type: 'logarithmic',
             minColor: '#ffffff',
             maxColor: '#ff6600'
         },
@@ -213,7 +213,6 @@ function updateStatistics(source) {
         parsed = $.parseJSON(e.data)
 
         var time = parseInt(parsed["currentTime"])
-        // divide by 1000 so that the argument is in milliseconds, not seconds
         var date = new Date(time);
         var hours = date.getHours();
         var minutes = "0" + date.getMinutes();
