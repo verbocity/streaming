@@ -31,7 +31,17 @@ class RegionActor extends Actor with HttpSend {
 		send("line", JsonResult.mapToJson(grouped))
 	}
 
-	def calculateRegionCounts(rdd: RDD[Event]) = {
+	/*def calculateGroups(rdd: RDD[Event]) = {
+		val grouped: Map[String, Int] = rdd
+			.flatMap(e => e.getField("description").split(" "))
+			.filter(x => x == "esso" || x == "shell" || x == "total" || x == "bp" || x == "cafe" || x == "hotel" || x == "ns" || x == "ov")
+			.map(word => (word, 1))
+			.reduceByKey(_ + _)
+			.collect()
+			.toMap
+	}*/
+
+		def calculateRegionCounts(rdd: RDD[Event]) = {
 		val nl: Map[String, Int] = getCounts(rdd, "city",
 			municipalityToCodeMap,
 			cityToMunicipalityMap)
