@@ -21,14 +21,27 @@ class RegionActor extends Actor with HttpSend {
 	}
 
 	def calculateGroups(rdd: RDD[Event]) = {
-		val grouped: Map[String, Int] = rdd
-			.filter(e => e.getField("status").toInt != 0)
-			.groupBy(e => e.getField("status"))
-			.map(group => (group._1.toString, group._2.size))
-			.collect()
-			.toMap
+		 val grouped: Map[String, Int] = rdd
+				.map(e => {
+			     val amount = e.getField("amount").toFloat
 
-		send("line", JsonResult.mapToJson(grouped))
+					 if (amount < 10) {
+						 "less than €10"
+					 } else if (amount < 25) {
+						 "between €10 and €25"
+					 } else if (amount < 100) {
+						 "between €25 and €100"
+					 } else if (amount < 250) {
+						 "between €100 and €250"
+					 } else {
+						 "more than €250"
+					 }
+				}).groupBy(c => c)
+					.mapValues(_.size)
+					.collect()
+					.toMap
+
+			send("line", JsonResult.mapToJson(grouped))
 	}
 
 	/*def calculateGroups(rdd: RDD[Event]) = {

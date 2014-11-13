@@ -40,20 +40,14 @@ function createLineChart(source) {
             animation: Highcharts.svg,
             marginRight: 10,
             events: {
-                load: function() {
-                    source.addEventListener('message', function(e) {
-                    var parsed = $.parseJSON(e.data)
-
-                    //console.log(parsed.shell)
-
-                    var c = $('#container1').highcharts();
-                    var x = (new Date()).getTime()
-                    c.series[0].addPoint([x, parseInt(parsed.esso) ], true, true);
-                    c.series[1].addPoint([x, parseInt(parsed.shell) ], true, true);
-                    c.series[2].addPoint([x, parseInt(parsed.total) ], true, true);
-                    c.series[3].addPoint([x, parseInt(parsed.bp) ], true, true);
-
-                    }, true)
+                load: function () {
+                    // set up the updating of the chart each second
+                    var series = this.series[0];
+                    setInterval(function () {
+                        var x = (new Date()).getTime(), // current time
+                            y = Math.random();
+                        series.addPoint([x, y], true, true);
+                    }, 1000);
                 }
             }
         },
@@ -163,6 +157,40 @@ function createLineChart2(source) {
         }
     });
 }
+
+function createImageTable(source) {
+    source.addEventListener('message', function(e) {
+        data = []
+        var parsed = $.parseJSON(e.data)
+
+        $.each(parsed, function(a, b) {
+            var loader = new ImageLoader(b["url"]);
+
+            // 0: 1.1, 1: 1.2, 2: 1.3, 3: 1.4, 4: 1.5,
+            // 5: 2.1, 6: 2.2, 7: 2.3, 8: 2.4, 9: 2.5
+            var row = Math.floor((a / 5) + 1)
+            var col = (a % 5) + 1
+
+            loader.loadEvent = function(url, image) {
+                var divid = '#r' + row + 'c' + col
+                var img = document.createElement("img")
+
+                var amount = parseInt(b["count"])
+
+                //img.style.height = (50 * amount) + 'px'
+                //img.style.width = (50 * amount) + 'px'
+                img.width=50 * (amount / 20)
+                img.height=50 * (amount / 20)
+
+                img.src = b["url"]
+
+               document.getElementById("r" + row + "c" + col).innerHTML = ""
+               document.getElementById("r" + row + "c" + col).appendChild(img)
+            }
+
+            loader.load();
+        });
+    }, false);
 
 function createFraudText(source) {
     source.addEventListener('message', function(e) {

@@ -57,7 +57,7 @@ class IntegrationTest extends TestKit(ActorSystem("system"))
 			// Start up the log processing system
 			readerRef ! ReadNextLogEntry()
 
-			expectNoMsg(1000 seconds)
+			expectNoMsg(100000 seconds)
 		}
 	}
 

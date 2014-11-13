@@ -14,7 +14,7 @@ case class ParseLogEntry(entry: String)
  * Parses text message in a String and creates an event
  * object from it.
  */
-class Parser(queue: ActorRef) extends Actor {
+class Parser(queue: ActorRef, startFrom: Option[DateTime]) extends Actor {
 	val formatter: DateTimeFormatter = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss.SSS")
 	var reader: ActorRef = _
 
@@ -23,12 +23,11 @@ class Parser(queue: ActorRef) extends Actor {
 			if (entry != null && !entry.isEmpty) {
 				try {
 					val e = Event(entry)
-
-					if (e != null) {
-						queue ! Enqueue(e)
-					} else {
-						println("Parser received invalid event")
-					}
+						if (e != null) {
+							queue ! Enqueue(e)
+						} else {
+							println("Parser received invalid event")
+						}
 				} catch {
 					case e: Exception =>
 						println("Skipping invalid event object")
